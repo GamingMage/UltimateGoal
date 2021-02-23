@@ -112,7 +112,7 @@ public class MecanumDrive {
         imu.initialize(parameters);
     }
 
-    private void resetAngle() {
+    public void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         globalAngle = 0;
@@ -524,7 +524,7 @@ public class MecanumDrive {
     }
 
 
-    private void rotate(int degrees, double power) {
+    private void rotate(double degrees, double power) {
         double leftPower, rightPower;
 
         // restart imu movement tracking.
@@ -534,11 +534,11 @@ public class MecanumDrive {
         // clockwise (right).
 
         if (degrees < 0) {   // turn right.
-            leftPower = power;
-            rightPower = -power;
-        } else if (degrees > 0) {   // turn left.
             leftPower = -power;
             rightPower = power;
+        } else if (degrees > 0) {   // turn left.
+            leftPower = power;
+            rightPower = -power;
         } else return;
 
         // set power to rotate.
@@ -564,6 +564,7 @@ public class MecanumDrive {
         leftBack.setPower(0);
         rightFront.setPower(0);
         leftFront.setPower(0);
+        resetAngle();
     }
     //end internal gyro code
 
@@ -573,11 +574,10 @@ public class MecanumDrive {
      * @param speed
      * @param degrees
      */
-    public void gStatTurn(double speed, int degrees){
+    public void gStatTurn(double speed, double degrees){
         rotate(degrees,speed);
         //left is + degrees
         //right is - degrees
-        getAngle();
     }
 
     /**
