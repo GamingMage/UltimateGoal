@@ -373,7 +373,8 @@ public class MecanumDrive {
     public void sideDrive(double speed, double distance) {
         //negative distance = right
         //oneSideEncoderDrive(speed,distance);
-        sideEncoderDrive(speed, distance);
+        //sideEncoderDrive(speed, distance);
+        sideEncoderDriveGyro(speed,distance);
     }
 
     /**
@@ -424,6 +425,71 @@ public class MecanumDrive {
         rightFront.setPower(Math.abs(speed));
 
         while (leftBack.isBusy() && rightBack.isBusy() && leftFront.isBusy() && rightFront.isBusy()) ;
+
+        // Stop all motion;
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+    } //end of encoder drive method
+
+    /**
+     * Side encoder drive with gyro
+     * @param speed
+     * @param distance
+     */
+    private void sideEncoderDriveGyro(double speed,
+                                  double distance) {
+        int newLBTarget;
+        int newRBTarget;
+        int newLFTarget;
+        int newRFTarget;
+
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Determine new target position, and pass to motor controller
+        newLBTarget = leftBack.getCurrentPosition() + (int) (-distance * COUNTS_PER_INCH);
+        newRBTarget = rightBack.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        newLFTarget = leftFront.getCurrentPosition() + (int) (distance * COUNTS_PER_INCH);
+        newRFTarget = rightFront.getCurrentPosition() + (int) (-distance * COUNTS_PER_INCH);
+        leftBack.setTargetPosition(newLBTarget);
+        rightBack.setTargetPosition(newRBTarget);
+        leftFront.setTargetPosition(newLFTarget);
+        rightFront.setTargetPosition(newRFTarget);
+
+        // Turn On RUN_TO_POSITION
+        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // start motion.
+        leftBack.setPower(Math.abs(speed));
+        rightBack.setPower(Math.abs(speed));
+        leftFront.setPower(Math.abs(speed));
+        rightFront.setPower(Math.abs(speed));
+
+        while (leftBack.isBusy() && rightBack.isBusy() && leftFront.isBusy() && rightFront.isBusy()) {
+            leftBack.setPower(Math.abs(speed) + checkDirection());
+            rightBack.setPower(Math.abs(speed) - checkDirection());
+            leftFront.setPower(Math.abs(speed) - checkDirection());
+            rightFront.setPower(Math.abs(speed) + checkDirection());
+        }
 
         // Stop all motion;
         leftBack.setPower(0);
@@ -566,6 +632,27 @@ public class MecanumDrive {
         leftFront.setPower(0);
         resetAngle();
     }
+    /**
+     * See if we are moving in a straight line and if not return a power correction value.
+     * @return Power adjustment, + is adjust left - is adjust right.
+     */
+    private double checkDirection() {
+        // The gain value determines how sensitive the correction is to direction changes.
+        // You will have to experiment with your robot to get small smooth direction changes
+        // to stay on a straight line.
+        double correction, angle, gain = .01;
+
+        angle = getAngle();
+
+        if (angle == 0)
+            correction = 0;             // no adjustment.
+        else
+            correction = -angle;        // reverse sign of angle for correction.
+
+        correction = correction * gain;
+
+        return correction;
+    }
     //end internal gyro code
 
     /**
@@ -609,4 +696,5 @@ public class MecanumDrive {
     public int getRBencoder() { return rightBack.getCurrentPosition();}
     public int getLFencoder() { return leftFront.getCurrentPosition();}
     public int getRFencoder() { return rightFront.getCurrentPosition();}
+
 }

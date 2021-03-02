@@ -42,6 +42,7 @@ public class BlueRightDynamic extends OpMode {
         shooter.init(hardwareMap);
         grabber.init(hardwareMap);
         camera.init(hardwareMap);
+        robot.initIMU(hardwareMap);
 
         if (shooter.scalePowerShot() != Double.POSITIVE_INFINITY) {
             //power = shooter.scalePowerShot();
