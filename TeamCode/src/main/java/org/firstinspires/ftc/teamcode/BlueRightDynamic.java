@@ -104,7 +104,7 @@ public class BlueRightDynamic extends OpMode {
                 while (waitTime > runtime.time() - time) {
 
                 }
-                intake.lowerIntake();
+               // intake.lowerIntake();
                 stateMachineFlow++;
                 break;
             case 1:

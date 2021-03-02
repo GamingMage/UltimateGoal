@@ -250,7 +250,7 @@ public class BlueRightWobble extends OpMode {
 
             case 150:
                 //Move right in line with first power shot
-                robot.gStatTurn(.2,-robot.getAngle()+1);
+                robot.gStatTurn(.2,-robot.getAngle());
                 robot.sideDrive(.4,-38);
                 stateMachineFlow++;
                 break;
@@ -683,12 +683,13 @@ public class BlueRightWobble extends OpMode {
             case 400:
                 //move robot from high goal path to end position of power shot path
                 robot.sideDrive(.4,-25);
-                //robot.gStatTurn(.2,-robot.getAngle());
+                robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 401:
                 //move robot from end position of power shot back towards the wall
                 robot.linearDrive(.7,45);
+                //robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 402:
