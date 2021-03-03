@@ -140,8 +140,7 @@ public class MecanumDrive {
         return globalAngle;
     }
 
-    private void encoderDrive(double speed,
-    double lBDis, double rBDis) {
+    private void encoderDrive(double speed, double lBDis, double rBDis) {
         int newLBTarget;
         int newRBTarget;
         int newLFTarget;
@@ -194,6 +193,66 @@ public class MecanumDrive {
         rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     } //end of encoder drive method
+
+    private void encoderDriveGyro(double speed, double lBDis, double rBDis) {
+        int newLBTarget;
+        int newRBTarget;
+        int newLFTarget;
+        int newRFTarget;
+
+        leftBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        leftBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        // Determine new target position, and pass to motor controller
+        newLBTarget = leftBack.getCurrentPosition() + (int) (lBDis * COUNTS_PER_INCH);
+        newRBTarget = rightBack.getCurrentPosition() + (int) (rBDis * COUNTS_PER_INCH);
+        newLFTarget = leftFront.getCurrentPosition() + (int) (lBDis * COUNTS_PER_INCH);
+        newRFTarget = rightFront.getCurrentPosition() + (int) (rBDis * COUNTS_PER_INCH);
+        leftBack.setTargetPosition(newLBTarget);
+        rightBack.setTargetPosition(newRBTarget);
+        leftFront.setTargetPosition(newLFTarget);
+        rightFront.setTargetPosition(newRFTarget);
+
+        // Turn On RUN_TO_POSITION
+        leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // start motion.
+        leftBack.setPower(Math.abs(speed));
+        rightBack.setPower(Math.abs(speed));
+        leftFront.setPower(Math.abs(speed));
+        rightFront.setPower(Math.abs(speed));
+
+        while (leftBack.isBusy() && rightBack.isBusy() && leftFront.isBusy() && rightFront.isBusy()) {
+
+            leftBack.setPower(Math.abs(speed) + checkDirection());
+            rightBack.setPower(Math.abs(speed) - checkDirection());
+            leftFront.setPower(Math.abs(speed) + checkDirection());
+            rightFront.setPower(Math.abs(speed) - checkDirection());
+        }
+
+        // Stop all motion;
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        leftBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightBack.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+    }
 
     /**
      * Encoder Drive Method that uses only the front encoders
@@ -350,7 +409,8 @@ public class MecanumDrive {
      * @param distance
      */
     public void linearDrive(double speed, double distance) {
-        encoderDrive(speed, distance, distance);
+        //encoderDrive(speed, distance, distance);
+        encoderDriveGyro(speed, distance, distance);
     }
 
     /**
@@ -640,7 +700,7 @@ public class MecanumDrive {
         // The gain value determines how sensitive the correction is to direction changes.
         // You will have to experiment with your robot to get small smooth direction changes
         // to stay on a straight line.
-        double correction, angle, gain = .01;
+        double correction, angle, gain = .0005;
 
         angle = getAngle();
 
