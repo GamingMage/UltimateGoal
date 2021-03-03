@@ -96,6 +96,7 @@ public class BlueRightDynamic extends OpMode {
 
         switch(stateMachineFlow) {
             case 0:
+                robot.resetAngle();
                 //Drive into place to check number of rings
                 robot.linearDrive(.45,-34);
                 waitTime = 1;

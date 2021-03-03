@@ -688,8 +688,9 @@ public class BlueRightWobble extends OpMode {
                 break;
             case 401:
                 //move robot from end position of power shot back towards the wall
-                robot.linearDrive(.7,45);
                 //robot.gStatTurn(.2,-robot.getAngle());
+                robot.linearDrive(.7,45);
+               // robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 402:
