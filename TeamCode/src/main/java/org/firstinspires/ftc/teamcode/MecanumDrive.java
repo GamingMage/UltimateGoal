@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class MecanumDrive {
     //This class will contain the drive motors on the robot, gyro sensor
-    //Methods will include gyro aided turn, speed control (TeleOP), Odometry for autonomous(?)
+    //Methods will include gyro aided turn, speed control (TeleOP), Odometry for autonomous(?) 
 
     /* Public OpMode members. */
     public DcMotor leftBack   = null;
