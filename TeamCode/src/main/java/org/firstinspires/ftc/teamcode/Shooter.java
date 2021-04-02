@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 public class Shooter {
-    //This class is for the shooter and will include two motors
+    //This class is for the shooter and will include one motor and one servo
     //This class will include methods for power adjustment and turning the power on and off
 
     /*Public OpMode Members.*/
-    public DcMotor leftShooter  = null;
-    public DcMotor rightShooter = null;
+    public DcMotor shooter  = null;
+    public Servo shooterSwitch = null;
 
     HardwareMap hwMap = null;
 
@@ -25,23 +26,22 @@ public class Shooter {
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftShooter = hwMap.get(DcMotor.class, "left_shooter");
-        rightShooter = hwMap.get(DcMotor.class, "right_shooter");
+        shooter = hwMap.get(DcMotor.class, "shooter");
+        shooterSwitch = hwMap.get(Servo.class,"shooter_switch");
         //define motor direction
-        leftShooter.setDirection(DcMotor.Direction.REVERSE);
-        rightShooter.setDirection(DcMotor.Direction.REVERSE);
+        shooter.setDirection(DcMotor.Direction.REVERSE);
 
-        leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
-        leftShooter.setPower(0);
-        rightShooter.setPower(0);
+        shooter.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
-        leftShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //Set initial positions of servos
+        shooterSwitch.setPosition(0);
 
     }
 
@@ -51,8 +51,15 @@ public class Shooter {
      * @param power
      */
     public void shooterPower(double power) {
-        leftShooter.setPower(-power);
-        rightShooter.setPower(power);
+        shooter.setPower(-power);
+    }
+
+    /**
+     * This method sets the position of the servo that sends rings to the shooter
+     * @param position
+     */
+    public void switchPosition(double position) {
+        shooterSwitch.setPosition(position);
     }
 
     /**
@@ -110,6 +117,6 @@ public class Shooter {
     }
 
     public double getShooterPower() {
-        return rightShooter.getPower();
+        return shooter.getPower();
     }
 }
