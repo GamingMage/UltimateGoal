@@ -47,7 +47,7 @@ public class Intake {
         transition.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Set servo to the closed position
-        intakeLatch.setPosition(1);
+        intakeLatch.setPosition(.7);
     }
 
     /**

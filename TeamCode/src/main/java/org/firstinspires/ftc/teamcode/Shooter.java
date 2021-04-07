@@ -41,13 +41,13 @@ public class Shooter {
         shooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Set initial positions of servos
-        shooterSwitch.setPosition(0);
+        shooterSwitch.setPosition(1);
 
     }
 
     /**
-     * This method passes a power value to both shooter motors.
-     * NOTE: At the time of writing this, a negative value will cause the motors to rotate outwards.
+     * This method passes a power value to the shooter motor.
+     * NOTE: At the time of writing this, a negative value will cause the motor to rotate outwards.
      * @param power
      */
     public void shooterPower(double power) {
