@@ -250,7 +250,7 @@ public class BlueRightWobble extends OpMode {
 
             case 150:
                 //Move right in line with first power shot
-                robot.gStatTurn(.2,-robot.getAngle());
+                //robot.gStatTurn(.2,-robot.getAngle());
                 robot.sideDrive(.4,-38);
                 stateMachineFlow++;
                 break;
@@ -281,7 +281,7 @@ public class BlueRightWobble extends OpMode {
                 //Move right to second power shot
                 robot.sideDrive(.4,-7);
                 //robot.gStatTurn(.2,-robot.getAngle());
-                waitTime = .25;
+                waitTime = .5;
                 runtime.reset();
                 time = runtime.time();
                 while (waitTime > runtime.time() - time) {
@@ -377,7 +377,7 @@ public class BlueRightWobble extends OpMode {
             case 206:
                 //Move to be in line with goal
                 robot.sideDrive(.4,20);
-                robot.gStatTurn(.2,-robot.getAngle());
+                //robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 207:
@@ -481,7 +481,7 @@ public class BlueRightWobble extends OpMode {
                 //Turn off shooter and intake
                 intake.intakePower(0);
                 shooter.shooterPower(0);
-                robot.gStatTurn(.2,-robot.getAngle());
+               // robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow = 401;
                 break;
                 /*
@@ -559,7 +559,7 @@ public class BlueRightWobble extends OpMode {
             case 307:
                 //Move right to be in line with goal
                 robot.sideDrive(.4,-13);
-                robot.gStatTurn(.2,-robot.getAngle());
+               // robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 308:
@@ -609,7 +609,7 @@ public class BlueRightWobble extends OpMode {
 
             case 350:
                 //Move right in line with first power shot
-                robot.gStatTurn(.2,-robot.getAngle());
+              //  robot.gStatTurn(.2,-robot.getAngle());
                 robot.sideDrive(.4,-37);
                 //robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
@@ -664,7 +664,7 @@ public class BlueRightWobble extends OpMode {
                 //Turn off shooter and intake
                 intake.intakePower(0);
                 shooter.shooterPower(0);
-                robot.gStatTurn(.2,-robot.getAngle());
+               // robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 356:
@@ -683,7 +683,7 @@ public class BlueRightWobble extends OpMode {
             case 400:
                 //move robot from high goal path to end position of power shot path
                 robot.sideDrive(.4,-25);
-                robot.gStatTurn(.2,-robot.getAngle());
+             //   robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 401:
@@ -799,7 +799,7 @@ public class BlueRightWobble extends OpMode {
              **************************/
             case 550:
                 robot.sideDrive(.4,-26);
-                robot.gStatTurn(.2,-robot.getAngle());
+               // robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 551:
@@ -808,7 +808,7 @@ public class BlueRightWobble extends OpMode {
                 break;
             case 552:
                 robot.sideDrive(.4,11);
-                robot.gStatTurn(.2,-robot.getAngle());
+              //  robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 553:
@@ -833,7 +833,7 @@ public class BlueRightWobble extends OpMode {
                 break;
             case 555:
                 robot.sideDrive(.4,-6);
-                robot.gStatTurn(.2,-robot.getAngle());
+            //    robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 556:
@@ -855,7 +855,7 @@ public class BlueRightWobble extends OpMode {
              **************************/
             case 600:
                 robot.sideDrive(.4,-26);
-                robot.gStatTurn(.2,-robot.getAngle());
+              //  robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 601:
@@ -864,7 +864,7 @@ public class BlueRightWobble extends OpMode {
                 break;
             case 602:
                 robot.sideDrive(.4,32);
-                robot.gStatTurn(.2,-robot.getAngle());
+             //   robot.gStatTurn(.2,-robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 603:

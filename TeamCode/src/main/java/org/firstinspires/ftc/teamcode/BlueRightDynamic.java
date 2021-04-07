@@ -677,6 +677,16 @@ public class BlueRightDynamic extends OpMode {
                 robot.linearDrive(.5,-7);
                 stateMachineFlow++;
                 break;
+            case 357:
+                intake.intakeLatch.setPosition(.5);
+                waitTime = .5;
+                runtime.reset();
+                time = runtime.time();
+                while (waitTime > runtime.time() - time) {
+
+                }
+                stateMachineFlow++;
+                break;
                 /*
                 End...
                  */
