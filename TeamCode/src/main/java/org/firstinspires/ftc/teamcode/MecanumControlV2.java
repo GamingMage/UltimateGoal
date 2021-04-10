@@ -11,7 +11,7 @@ public class MecanumControlV2 extends OpMode {
 
     MecanumDrive robot    = new MecanumDrive();
     Shooter shooter       = new Shooter();
-    //Intake  intake        = new Intake();
+    Intake  intake        = new Intake();
     WobbleGrabber grabber = new WobbleGrabber();
 
     double driveSpeed;
@@ -38,7 +38,7 @@ public class MecanumControlV2 extends OpMode {
     public void init() {
         robot.init(hardwareMap);
         shooter.init(hardwareMap);
-        //intake.init(hardwareMap);
+        intake.init(hardwareMap);
         grabber.init(hardwareMap);
 
         msStuckDetectInit = 18000;
@@ -166,23 +166,8 @@ public class MecanumControlV2 extends OpMode {
             wasPowerDecreased = false;
         }
 
-//        //Control intake latch servo
-//        if (gamepad2.dpad_right) {
-//            intake.intakeLatch.setPosition(.5);
-//        }else if (gamepad2.dpad_left) {
-//            intake.intakeLatch.setPosition(1);
-//        }
-//
-//        //Control intake and transition
-//        if (gamepad2.left_bumper) {
-//            //independent control
-//            intake.intake.setPower(-gamepad2.right_stick_y);
-//            intake.transition.setPower(-gamepad2.left_stick_y);
-//        }else {
-//            //synchronous control
-//            intake.intake.setPower(-gamepad2.left_stick_y);
-//            intake.transition.setPower(-gamepad2.left_stick_y);
-//        }
+        //Control intake
+        intake.intake.setPower(-.75*gamepad2.left_stick_y);
 
         //Control shooter servo
         if (gamepad2.left_bumper) {
