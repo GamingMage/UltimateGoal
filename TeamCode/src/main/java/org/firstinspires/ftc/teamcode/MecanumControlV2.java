@@ -186,7 +186,7 @@ public class MecanumControlV2 extends OpMode {
 
         //Control shooter servo
         if (gamepad2.left_bumper) {
-            shooter.shooterSwitch.setPosition(.69);
+            shooter.shooterSwitch.setPosition(.63);
         }else {
             shooter.shooterSwitch.setPosition(1);
         }
