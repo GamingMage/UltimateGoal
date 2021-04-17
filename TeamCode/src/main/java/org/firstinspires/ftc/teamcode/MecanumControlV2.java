@@ -167,7 +167,7 @@ public class MecanumControlV2 extends OpMode {
         }
 
         //Control intake
-        intake.intake.setPower(-.75*gamepad2.left_stick_y);
+        intake.intake.setPower(-gamepad2.left_stick_y);
 
         //Control shooter servo
         if (gamepad2.left_bumper) {

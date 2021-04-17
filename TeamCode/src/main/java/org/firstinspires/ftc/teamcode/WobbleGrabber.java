@@ -39,7 +39,7 @@ public class WobbleGrabber {
      * This method lowers the grabber
      */
     public void lowerGripper() {
-        gripWrist.setPosition(.72);
+        gripWrist.setPosition(.54);
     }
 
     /**

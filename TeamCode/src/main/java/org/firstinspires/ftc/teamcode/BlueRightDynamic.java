@@ -80,6 +80,23 @@ public class BlueRightDynamic extends OpMode {
         telemetry.update();
     }
 
+    public void shoot() {
+        shooter.shooterSwitch.setPosition(.63);
+        waitTime = .3;
+        runtime.reset();
+        time = runtime.time();
+        while (waitTime > runtime.time() - time) {
+
+        }
+        shooter.shooterSwitch.setPosition(1);
+        waitTime = .3;
+        runtime.reset();
+        time = runtime.time();
+        while (waitTime > runtime.time() - time) {
+
+        }
+    }
+
     @Override
     public void loop() {
 
@@ -216,35 +233,13 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 109:
                 //Shoot rings into the goal
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                intake.intakePower(0);
-                waitTime = 1;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                stateMachineFlow++;
-                break;
-            case 110:
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                intake.intakePower(0);
+                shoot();
+                shoot();
+                shoot();
                 shooter.shooterPower(0);
                 stateMachineFlow++;
                 break;
-            case 111:
+            case 110:
                 //Drive forward onto shot line
                 robot.linearDrive(.5,-7);
                 stateMachineFlow++;
@@ -254,7 +249,7 @@ public class BlueRightDynamic extends OpMode {
                  */
             case 150:
                 //Move right in line with first power shot
-                robot.sideDrive(.4,-31);
+                robot.sideDrive(.4,-24);
                 stateMachineFlow++;
                 break;
             case 151:
@@ -270,14 +265,7 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 152:
                 //Shoot first power shot
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(power);
-                }
-                intake.intakePower(0);
+                shoot();
                 stateMachineFlow++;
                 break;
             case 153:
@@ -293,7 +281,12 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 154:
                 //Shoot second power shot
-                intake.intakePower(1);
+                shoot();
+                stateMachineFlow++;
+                break;
+            case 155:
+                //Move right to third power shot
+                robot.sideDrive(.4,-7);
                 waitTime = .5;
                 runtime.reset();
                 time = runtime.time();
@@ -302,13 +295,17 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 155:
-                //Turn off shooter and intake
-                shooter.shooterPower(0);
-                intake.intakePower(0);
+            case 156:
+                //shoot third power shot
+                shoot();
                 stateMachineFlow++;
                 break;
-            case 156:
+            case 157:
+                //Turn off shooter and intake
+                shooter.shooterPower(0);
+                stateMachineFlow++;
+                break;
+            case 158:
                 //Move forward onto the shot line
                 robot.linearDrive(.5,-7);
                 stateMachineFlow++;
@@ -328,6 +325,11 @@ public class BlueRightDynamic extends OpMode {
                 stateMachineFlow++;
                 break;
             case 201:
+                //move into zone B
+                robot.sideDrive(.4,9);
+                stateMachineFlow++;
+                break;
+            case 203:
                 //Lower wobble grabber
                 grabber.lowerGripper();
                 waitTime = 1;
@@ -338,7 +340,7 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 202:
+            case 204:
                 //Release wobble goal
                 grabber.gripperPosition(0);
                 waitTime = .5;
@@ -349,12 +351,12 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 203:
+            case 205:
                 //Back up behind shot line
                 robot.linearDrive(.5,35);
                 stateMachineFlow++;
                 break;
-            case 204:
+            case 206:
                 //Raise grabber
                 grabber.gripWrist.setPosition(.23);
                 waitTime = 1;
@@ -365,7 +367,7 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 205:
+            case 207:
                 /*
                 High goal or powershot
                  */
@@ -378,12 +380,12 @@ public class BlueRightDynamic extends OpMode {
                 }
                 telemetry.addData("Case",stateMachineFlow);
                 break;
-            case 206:
+            case 208:
                 //Move to be in line with goal
-                robot.sideDrive(.4,22);
+                robot.sideDrive(.4,13);
                 stateMachineFlow++;
                 break;
-            case 207:
+            case 209:
                 //Turn on shooter
                 shooter.shooterPower(high);
                 waitTime = 1;
@@ -394,37 +396,15 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 208:
+            case 210:
                 //Shoot rings into the goal
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                intake.intakePower(0);
-                waitTime = 1;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                stateMachineFlow++;
-                break;
-            case 209:
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                intake.intakePower(0);
+                shoot();
+                shoot();
+                shoot();
                 shooter.shooterPower(0);
                 stateMachineFlow++;
                 break;
-            case 210:
+            case 211:
                 //Drive forward onto shot line
                 robot.linearDrive(.5,-7);
                 stateMachineFlow++;
@@ -450,14 +430,7 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 252:
                 //Shoot first power shot
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(power);
-                }
-                intake.intakePower(0);
+                shoot();
                 stateMachineFlow++;
                 break;
             case 253:
@@ -473,7 +446,12 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 254:
                 //Shoot second power shot
-                intake.intakePower(1);
+                shoot();
+                stateMachineFlow++;
+                break;
+            case 255:
+                //Move right to third power shot
+                robot.sideDrive(.4,-7);
                 waitTime = .5;
                 runtime.reset();
                 time = runtime.time();
@@ -482,13 +460,17 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 255:
+            case 256:
+                //shoot third power shot
+                shoot();
+                stateMachineFlow++;
+                break;
+            case 257:
                 //Turn off shooter and intake
-                intake.intakePower(0);
                 shooter.shooterPower(0);
                 stateMachineFlow++;
                 break;
-            case 256:
+            case 258:
                 //Move forward onto the shot line
                 robot.linearDrive(.5,-7);
                 stateMachineFlow++;
@@ -580,35 +562,13 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 309:
                 //Shoot rings into the goal
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                intake.intakePower(0);
-                waitTime = 1;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                stateMachineFlow++;
-                break;
-            case 310:
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(high);
-                }
-                intake.intakePower(0);
+                shoot();
+                shoot();
+                shoot();
                 shooter.shooterPower(0);
                 stateMachineFlow++;
                 break;
-            case 311:
+            case 310:
                 //Drive forward onto shot line
                 robot.linearDrive(.5,-7);
                 stateMachineFlow++;
@@ -618,7 +578,7 @@ public class BlueRightDynamic extends OpMode {
                  */
             case 350:
                 //Move right in line with first power shot
-                robot.sideDrive(.4,-29);
+                robot.sideDrive(.4,-22);
                 stateMachineFlow++;
                 break;
             case 351:
@@ -634,14 +594,7 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 352:
                 //Shoot first power shot
-                intake.intakePower(1);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-                    shooter.shooterPower(power);
-                }
-                intake.intakePower(0);
+                shoot();
                 stateMachineFlow++;
                 break;
             case 353:
@@ -657,7 +610,12 @@ public class BlueRightDynamic extends OpMode {
                 break;
             case 354:
                 //Shoot second power shot
-                intake.intakePower(1);
+                shoot();
+                stateMachineFlow++;
+                break;
+            case 355:
+                //Move right to third power shot
+                robot.sideDrive(.4,-7);
                 waitTime = .5;
                 runtime.reset();
                 time = runtime.time();
@@ -666,25 +624,19 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
-            case 355:
-                //Turn off shooter and intake
-                intake.intakePower(0);
-                shooter.shooterPower(0);
-                stateMachineFlow++;
-                break;
             case 356:
-                //Move forward onto the shot line
-                robot.linearDrive(.5,-7);
+                //shoot third power shot
+                shoot();
                 stateMachineFlow++;
                 break;
             case 357:
-                intake.intakeLatch.setPosition(.5);
-                waitTime = .5;
-                runtime.reset();
-                time = runtime.time();
-                while (waitTime > runtime.time() - time) {
-
-                }
+                //Turn off shooter and intake
+                shooter.shooterPower(0);
+                stateMachineFlow++;
+                break;
+            case 358:
+                //Move forward onto the shot line
+                robot.linearDrive(.5,-7);
                 stateMachineFlow++;
                 break;
                 /*
