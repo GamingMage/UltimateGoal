@@ -188,11 +188,6 @@ public class BlueRightDynamic extends OpMode {
                 stateMachineFlow++;
                 break;
             case 104:
-                //Back up behind shot line
-                robot.linearDrive(.5,17);
-                stateMachineFlow++;
-                break;
-            case 105:
                 grabber.gripWrist.setPosition(.23);
                 waitTime = 1;
                 runtime.reset();
@@ -200,6 +195,13 @@ public class BlueRightDynamic extends OpMode {
                 while (waitTime > runtime.time() - time) {
 
                 }
+                stateMachineFlow++;
+                break;
+
+            case 105:
+                //Back up behind shot line
+                robot.gStatTurn(.2, -robot.getAngle());
+                robot.linearDrive(.5,13);
                 stateMachineFlow++;
                 break;
             case 106:
@@ -250,6 +252,7 @@ public class BlueRightDynamic extends OpMode {
             case 150:
                 //Move right in line with first power shot
                 robot.sideDrive(.4,-24);
+              //  robot.gStatTurn(.2, -robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 151:
@@ -329,6 +332,9 @@ public class BlueRightDynamic extends OpMode {
                 robot.sideDrive(.4,9);
                 stateMachineFlow++;
                 break;
+            case 202:
+                stateMachineFlow++;
+                break;
             case 203:
                 //Lower wobble grabber
                 grabber.lowerGripper();
@@ -352,11 +358,6 @@ public class BlueRightDynamic extends OpMode {
                 stateMachineFlow++;
                 break;
             case 205:
-                //Back up behind shot line
-                robot.linearDrive(.5,35);
-                stateMachineFlow++;
-                break;
-            case 206:
                 //Raise grabber
                 grabber.gripWrist.setPosition(.23);
                 waitTime = 1;
@@ -367,6 +368,13 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
+            case 206:
+
+            //Back up behind shot line
+            robot.gStatTurn(.2, -robot.getAngle());
+            robot.linearDrive(.5,31);
+            stateMachineFlow++;
+            break;
             case 207:
                 /*
                 High goal or powershot
@@ -414,7 +422,7 @@ public class BlueRightDynamic extends OpMode {
                  */
             case 250:
                 //Move right in line with first power shot
-                robot.sideDrive(.4,-2);
+                robot.sideDrive(.4,-7);
                 stateMachineFlow++;
                 break;
             case 251:
@@ -452,6 +460,7 @@ public class BlueRightDynamic extends OpMode {
             case 255:
                 //Move right to third power shot
                 robot.sideDrive(.4,-7);
+            //    robot.gStatTurn(.2, -robot.getAngle());
                 waitTime = .5;
                 runtime.reset();
                 time = runtime.time();
@@ -517,11 +526,6 @@ public class BlueRightDynamic extends OpMode {
                 stateMachineFlow++;
                 break;
             case 304:
-                //Back up behind shot line
-                robot.linearDrive(.5,57);
-                stateMachineFlow++;
-                break;
-            case 305:
                 grabber.gripWrist.setPosition(.23);
                 waitTime = 1;
                 runtime.reset();
@@ -531,6 +535,12 @@ public class BlueRightDynamic extends OpMode {
                 }
                 stateMachineFlow++;
                 break;
+            case 305:
+            //Back up behind shot line
+            robot.gStatTurn(.2, -robot.getAngle());
+            robot.linearDrive(.5,54);
+            stateMachineFlow++;
+            break;
             case 306:
                 /*
                 High goal or powershot
@@ -578,7 +588,8 @@ public class BlueRightDynamic extends OpMode {
                  */
             case 350:
                 //Move right in line with first power shot
-                robot.sideDrive(.4,-22);
+                robot.sideDrive(.4,-24);
+               // robot.gStatTurn(.2, -robot.getAngle());
                 stateMachineFlow++;
                 break;
             case 351:

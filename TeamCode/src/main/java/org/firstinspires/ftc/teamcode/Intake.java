@@ -28,23 +28,23 @@ public class Intake {
 
         // Define and Initialize Motors
         intake = hwMap.get(DcMotor.class, "intake");
-//        transition = hwMap.get(DcMotor.class, "transition");
+        transition = hwMap.get(DcMotor.class, "transition");
 //        intakeLatch = hwMap.get(Servo.class,"intake_latch");
         //define motor direction
         intake.setDirection(DcMotor.Direction.REVERSE);
-//        transition.setDirection(DcMotor.Direction.REVERSE);
+        transition.setDirection(DcMotor.Direction.REVERSE);
 
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//        transition.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        transition.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
         intake.setPower(0);
-//        transition.setPower(0);
+        transition.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//        transition.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        transition.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         //Set servo to the closed position
 //        intakeLatch.setPosition(.7);
@@ -56,7 +56,7 @@ public class Intake {
      */
     public void intakePower(double power) {
         intake.setPower(power);
-//        transition.setPower(power);
+        transition.setPower(-power);
     }
 
     /**

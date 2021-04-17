@@ -433,8 +433,8 @@ public class MecanumDrive {
     public void sideDrive(double speed, double distance) {
         //negative distance = right
         //oneSideEncoderDrive(speed,distance);
-        //sideEncoderDrive(speed, distance);
-        sideEncoderDriveGyro(speed,distance);
+        sideEncoderDrive(speed, distance);
+       // sideEncoderDriveGyro(speed,distance);
     }
 
     /**
